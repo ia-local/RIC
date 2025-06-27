@@ -66,7 +66,9 @@ Style : Design plat ou semi-plat avec des cartes bien définies et des espaces g
 
 ⚙️ Structure Technique Préliminaire
 Le projet est basé sur Electron, permettant une application multiplateforme.
-
+```
+<pre>
+<code>
 .
 ├── build
 │   ├── database.json          # Fichier de base de données (pour dev initial)
@@ -87,6 +89,8 @@ Le projet est basé sur Electron, permettant une application multiplateforme.
     ├── main.js                # Processus principal Electron
     ├── Menu.js                # Gestion du menu de l'application
     └── preload.js             # Script de préchargement Electron
+</code>
+</pre>
 Base de Données (Structure Proposée) 🗄️
 Nous utiliserons une base de données NoSQL (database.json initialement, potentiellement une solution plus robuste par la suite) avec des collections clés :
 
