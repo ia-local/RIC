@@ -1,0 +1,157 @@
+/* public/styles/components.css */
+
+/* --- 1. Boutons --- */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+    font-size: 1em;
+}
+
+.button-primary {
+    background-color: #FFD700; /* Jaune or */
+    color: #2c3e50; /* Texte bleu marine */
+}
+
+.button-primary:hover {
+    background-color: #FFA500; /* Orange plus clair */
+    color: #fff;
+}
+
+.button-secondary {
+    background-color: #FF8C00; /* Orange */
+    color: #fff;
+}
+
+.button-secondary:hover {
+    background-color: #e67e22; /* Orange plus foncé */
+}
+
+.button-outline {
+    background-color: transparent;
+    border: 2px solid #FFD700;
+    color: #FFD700;
+}
+
+.button-outline:hover {
+    background-color: #FFD700;
+    color: #2c3e50;
+}
+
+/* --- 2. Formulaires --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 1.5rem;
+}
+
+form label {
+    font-weight: 600;
+    color: #333;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="date"],
+form textarea,
+form select {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    max-width: 400px; /* Limite la largeur des champs */
+    transition: border-color 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+    border-color: #FFD700; /* Bordure jaune au focus */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+form button[type="submit"] {
+    align-self: flex-start; /* Aligne le bouton à gauche */
+    margin-top: 10px;
+}
+
+.auth-forms {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+@media (min-width: 768px) {
+    .auth-forms {
+        grid-template-columns: 1fr 1fr; /* Deux colonnes sur grand écran */
+    }
+}
+
+
+/* --- 3. Cartes (Cards) --- */
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 1.5rem;
+}
+
+.stat-card {
+    background-color: #fdfdfd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.stat-card h4 {
+    color: #FF8C00; /* Orange pour les titres de cartes */
+    margin-bottom: 0.5em;
+}
+
+.stat-card p {
+    font-size: 2em;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Styles pour les listes de référendums (à compléter avec JS) */
+.referendum-item {
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.referendum-item h3 {
+    color: #FFD700;
+    margin-bottom: 0.5em;
+}
+
+.referendum-item p {
+    font-size: 0.95em;
+    color: #555;
+}
+
+.referendum-item .details {
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: #777;
+}
+
+.referendum-item .action-buttons {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
