@@ -16,7 +16,8 @@
             <h1 class="logo">RIC</h1>
             <nav>
                 <ul>
-                    <li><a href="#home" class="nav-link active">Accueil</a></li> <li><a href="#referendums" class="nav-link">Référendums</a></li>
+                    <li><a href="#home" class="nav-link">Accueil</a></li>
+                    <li><a href="#referendums" class="nav-link">Référendums</a></li>
                     <li><a href="#submit" class="nav-link">Soumettre un RIC</a></li>
                     <li><a href="#profile" class="nav-link">Mon Profil</a></li>
                     <li><a href="#login" class="nav-link" id="auth-link">Connexion / Inscription</a></li>
@@ -28,7 +29,25 @@
 
     <main id="app-content" class="container">
         <section id="home-page" class="page-section active">
-            <p>Chargement de la page d'accueil...</p>
+            <h2>Bienvenue sur le Référendum d'Initiative Citoyenne</h2>
+            <p>Une plateforme pour exercer votre droit démocratique. Proposez, votez, participez !</p>
+            <div class="cta-buttons">
+                <a href="#referendums" class="button button-primary">Voir les référendums</a>
+                <a href="#submit" class="button button-secondary">Soumettre votre RIC</a>
+            </div>
+            <div class="stats-overview">
+                <h3>En un coup d'œil</h3>
+                <div class="stat-cards">
+                    <div class="stat-card">
+                        <h4>Référendums Actifs</h4>
+                        <p id="active-referendums-count">...</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Citoyens Inscrits</h4>
+                        <p id="total-users-count">...</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="referendums-page" class="page-section" style="display: none;">
@@ -43,12 +62,16 @@
             <form id="submit-referendum-form">
                 <label for="title">Titre du Référendum:</label>
                 <input type="text" id="title" name="title" required>
+
                 <label for="question">Question Binaire (Oui/Non):</label>
                 <input type="text" id="question" name="question" required>
+
                 <label for="description">Description détaillée:</label>
                 <textarea id="description" name="description" rows="5" required></textarea>
+
                 <label for="endDate">Date de fin du vote:</label>
                 <input type="date" id="endDate" name="endDate" required>
+
                 <label for="level">Niveau de Scrutin:</label>
                 <select id="level" name="level">
                     <option value="national">National</option>
@@ -56,6 +79,7 @@
                     <option value="local">Local</option>
                     <option value="global">Global</option>
                 </select>
+                
                 <button type="submit" class="button button-primary">Soumettre le RIC</button>
             </form>
             <div id="submit-message"></div>
@@ -81,6 +105,7 @@
                     <button type="submit" class="button button-primary">Se connecter</button>
                     <div id="login-message"></div>
                 </form>
+
                 <h3>Inscription</h3>
                 <form id="register-form">
                     <label for="register-email">Email:</label>
@@ -103,8 +128,8 @@
 
     </main>
 
-    <script src="js/main.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/referendums.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/referendums.js"></script>
 </body>
 </html>

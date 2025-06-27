@@ -418,7 +418,26 @@ app.get('/api/results/:id', async (req, res) => {
     res.json(results);
 });
 
+/**
+ * @api {get} /api/stats Récupérer les statistiques générales
+ * @apiName GetAppStats
+ * @apiGroup Stats
+ * @apiSuccess {Number} activeReferendumsCount Nombre de référendums actifs.
+ * @apiSuccess {Number} totalUsersCount Nombre total d'utilisateurs inscrits.
+ * @apiSuccess {Number} totalVotesCount Nombre total de votes enregistrés.
+ */
+app.get('/api/stats', async (req, res) => {
+    const db = await readDB();
+    const activeReferendumsCount = db.referendums.filter(r => r.status === 'active' && new Date().toISOString() < r.end_vote_date).length;
+    const totalUsersCount = db.users.length;
+    const totalVotesCount = db.votes.length; // Compte tous les votes enregistrés
 
+    res.json({
+        activeReferendumsCount,
+        totalUsersCount,
+        totalVotesCount
+    });
+});
 // --- Lancement du serveur ---
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
