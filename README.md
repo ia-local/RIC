@@ -1,11 +1,11 @@
-🇫🇷 RIC - Référendum d'Initiative Citoyenne 🗳️
+## 🇫🇷 RIC - Référendum d'Initiative Citoyenne 🗳️
 Une application pour une démocratie directe et transparente
 Bienvenue sur le dépôt GitHub du projet RIC, une application ambitieuse visant à renforcer la participation citoyenne en France (et potentiellement au-delà) en permettant à chaque citoyen de proposer et de voter sur des référendums. Inspirée par l'esprit d'initiative citoyenne, cette plateforme est conçue pour être un outil de démocratie directe, garantissant intégrité et transparence.
 
-✨ Vision du Projet
+## ✨ Vision du Projet
 Notre vision est de démocratiser l'initiative législative en offrant une plateforme numérique où chaque citoyen peut soumettre une proposition de référendum (question binaire) et exercer son droit de vote. L'objectif est de créer un canal de participation citoyenne direct, complémentaire aux institutions existantes, en respectant les principes fondamentaux de la séparation des pouvoirs.
 
-🎯 Objectifs Clés
+## 🎯 Objectifs Clés
 Participation Citoyenne : Permettre à tout citoyen inscrit de soumettre une proposition de référendum et d'y voter.
 
 Transparence & Intégrité : Garantir un processus de vote sécurisé, unique et auditable, tout en préservant l'anonymat du votant.
@@ -16,8 +16,8 @@ Accessibilité : Proposer une interface utilisateur intuitive et une expérience
 
 Suivi & Classification : Offrir la possibilité de classer les référendums par niveau de scrutin (local, régional, national, global) et de suivre les résultats en temps réel ou après clôture.
 
-🔑 Fonctionnalités Principales
-1. Protocole de Vote Robuste & Séparation des Pouvoirs 🔒
+## 🔑 Fonctionnalités Principales
+# 1. Protocole de Vote Robuste & Séparation des Pouvoirs 🔒
 Pouvoir Juridique (L'Initiative) :
 
 Chaque citoyen inscrit pourra soumettre une question binaire (Oui/Non) pour un référendum, avec un titre, une description et la possibilité d'ajouter des pièces jointes.
@@ -44,7 +44,7 @@ Modération : Un système de modération des propositions sera mis en place pour
 
 "Tirage au Sort" : L'idée unique de "prise de décision par le hasard parmi la liste des personnes inscrites" sera affinée pour désigner, par exemple, un groupe de citoyens tirés au sort pour le suivi ou l'implémentation des décisions issues des référendums, en complément du résultat majoritaire du vote.
 
-2. Classification des Résultats & Niveaux de Scrutin 📊
+# 2. Classification des Résultats & Niveaux de Scrutin 📊
 Date Butoir : Chaque référendum aura une date de début et de fin de vote claire.
 
 Suivi des Votants : Affichage en temps réel du nombre de participants.
@@ -53,7 +53,7 @@ Résultats : Affichage clair des pourcentages "Oui" / "Non" une fois le référe
 
 Niveaux de Scrutin : Possibilité de filtrer et de catégoriser les référendums et leurs résultats selon des portées local, régional, national ou global.
 
-🎨 Charte Graphique : "Jaune & Orange pour une Démocratie Engagée"
+## 🎨 Charte Graphique : "Jaune & Orange pour une Démocratie Engagée"
 Notre design visera un équilibre entre professionnalisme et dynamisme, en intégrant les couleurs emblématiques de l'initiative citoyenne :
 
 Couleurs Principales : Jaune vif / Or (énergie, action) et Orange profond (communauté, engagement).
@@ -89,7 +89,8 @@ Le projet est basé sur Electron, permettant une application multiplateforme.
     ├── Menu.js                # Gestion du menu de l'application
     └── preload.js             # Script de préchargement Electron
 ```
-Base de Données (Structure Proposée) 🗄️
+
+## Base de Données (Structure Proposée) 🗄️
 Nous utiliserons une base de données NoSQL (database.json initialement, potentiellement une solution plus robuste par la suite) avec des collections clés :
 
 users : Contient les identifiants réels des citoyens (id, email, nom, adresse, statut de vérification) ainsi qu'un anonymized_id généré cryptographiquement. C'est la liste des inscrits pour l'aspect "exécutif".
@@ -111,7 +112,7 @@ Notre sereur.js exposera une API REST pour gérer les interactions :
 
 /api/results : Consultation des résultats finaux des référendums clôturés.
 
-🚧 Prochaines Étapes
+## 🚧 Prochaines Étapes
 Maintenant que la vision et la structure sont claires, nous allons pouvoir nous concentrer sur :
 
 Mise en place de l'authentification forte : Implémentation du système d'identification unique (ex: FranceConnect ou KYC).
