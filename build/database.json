@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "id": "1749339933848",
+      "name": "0",
+      "cvnuValue": 0.5,
+      "fiscalNumber": "1"
+    },
+    {
+      "id": "1749363386308",
+      "name": "1",
+      "cvnuValue": 0.5,
+      "fiscalNumber": "A"
+    },
+    {
+      "id": "1749375542944",
+      "name": "0",
+      "cvnuValue": 0.5,
+      "fiscalNumber": "FR-74"
+    }
+  ],
+  "startups": []
+}

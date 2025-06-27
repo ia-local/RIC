@@ -1,0 +1,140 @@
+/* public/styles/main.css */
+
+/* --- 1. Réinitialisation des styles de base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif; /* Police de corps de texte */
+    line-height: 1.6;
+    color: #333; /* Gris foncé pour la lisibilité */
+    background-color: #f8f8f8; /* Fond légèrement gris */
+}
+
+/* --- 2. Typographie et couleurs de base --- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Police pour les titres */
+    color: #2c3e50; /* Bleu marine foncé pour les titres */
+    margin-bottom: 0.8em;
+}
+
+h1 { font-size: 2.5em; }
+h2 { font-size: 2em; }
+h3 { font-size: 1.5em; }
+
+p {
+    margin-bottom: 1em;
+}
+
+a {
+    color: #FF8C00; /* Orange pour les liens */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #FFA500; /* Orange plus clair au survol */
+}
+
+/* --- 3. Conteneur principal --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* --- 4. En-tête de l'application --- */
+#main-header {
+    background-color: #2c3e50; /* Bleu marine foncé */
+    color: #fff;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #FFD700; /* Jaune or pour le logo */
+}
+
+#main-header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+#main-header nav ul li {
+    margin-left: 25px;
+}
+
+#main-header nav ul li .nav-link {
+    color: #fff;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+#main-header nav ul li .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #FFD700; /* Jaune pour l'effet survol */
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+#main-header nav ul li .nav-link:hover::after,
+#main-header nav ul li .nav-link.active::after {
+    width: 100%;
+}
+
+/* --- 5. Contenu principal et sections de page --- */
+#app-content {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}
+
+.page-section {
+    background-color: #fff;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 2rem; /* Espace entre les sections si visibles */
+}
+
+/* Masquer les sections non actives par défaut via JS */
+.page-section:not(.active) {
+    display: none;
+}
+
+/* --- 6. Notifications et messages --- */
+#notifications-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.notification-message {
+    background-color: #4CAF50; /* Vert pour succès */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.notification-message.error {
+    background-color: #f44336; /* Rouge pour erreur */
+}

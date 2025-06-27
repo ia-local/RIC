@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIC - Référendum d'Initiative Citoyenne</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <h1 class="logo">RIC</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="nav-link">Accueil</a></li>
+                    <li><a href="#referendums" class="nav-link">Référendums</a></li>
+                    <li><a href="#submit" class="nav-link">Soumettre un RIC</a></li>
+                    <li><a href="#profile" class="nav-link">Mon Profil</a></li>
+                    <li><a href="#login" class="nav-link" id="auth-link">Connexion / Inscription</a></li>
+                    <li><a href="#" class="nav-link" id="logout-button" style="display: none;">Déconnexion</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app-content" class="container">
+        <section id="home-page" class="page-section active">
+            <h2>Bienvenue sur le Référendum d'Initiative Citoyenne</h2>
+            <p>Une plateforme pour exercer votre droit démocratique. Proposez, votez, participez !</p>
+            <div class="cta-buttons">
+                <a href="#referendums" class="button button-primary">Voir les référendums</a>
+                <a href="#submit" class="button button-secondary">Soumettre votre RIC</a>
+            </div>
+            <div class="stats-overview">
+                <h3>En un coup d'œil</h3>
+                <div class="stat-cards">
+                    <div class="stat-card">
+                        <h4>Référendums Actifs</h4>
+                        <p id="active-referendums-count">...</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Citoyens Inscrits</h4>
+                        <p id="total-users-count">...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="referendums-page" class="page-section" style="display: none;">
+            <h2>Référendums en cours et passés</h2>
+            <div id="referendum-list">
+                <p>Chargement des référendums...</p>
+            </div>
+        </section>
+
+        <section id="submit-page" class="page-section" style="display: none;">
+            <h2>Soumettre votre Référendum d'Initiative Citoyenne</h2>
+            <form id="submit-referendum-form">
+                <label for="title">Titre du Référendum:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="question">Question Binaire (Oui/Non):</label>
+                <input type="text" id="question" name="question" required>
+
+                <label for="description">Description détaillée:</label>
+                <textarea id="description" name="description" rows="5" required></textarea>
+
+                <label for="endDate">Date de fin du vote:</label>
+                <input type="date" id="endDate" name="endDate" required>
+
+                <label for="level">Niveau de Scrutin:</label>
+                <select id="level" name="level">
+                    <option value="national">National</option>
+                    <option value="regional">Régional</option>
+                    <option value="local">Local</option>
+                    <option value="global">Global</option>
+                </select>
+                
+                <button type="submit" class="button button-primary">Soumettre le RIC</button>
+            </form>
+            <div id="submit-message"></div>
+        </section>
+
+        <section id="profile-page" class="page-section" style="display: none;">
+            <h2>Mon Profil</h2>
+            <div id="profile-details">
+                <p>Chargement du profil...</p>
+            </div>
+            <button id="verify-identity-button" class="button button-secondary">Vérifier mon identité</button>
+        </section>
+
+        <section id="auth-page" class="page-section" style="display: none;">
+            <h2>Connexion / Inscription</h2>
+            <div class="auth-forms">
+                <h3>Connexion</h3>
+                <form id="login-form">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" required>
+                    <label for="login-password">Mot de passe:</label>
+                    <input type="password" id="login-password" required>
+                    <button type="submit" class="button button-primary">Se connecter</button>
+                    <div id="login-message"></div>
+                </form>
+
+                <h3>Inscription</h3>
+                <form id="register-form">
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" required>
+                    <label for="register-password">Mot de passe:</label>
+                    <input type="password" id="register-password" required>
+                    <label for="register-first-name">Prénom:</label>
+                    <input type="text" id="register-first-name" required>
+                    <label for="register-last-name">Nom:</label>
+                    <input type="text" id="register-last-name" required>
+                    <label for="register-city">Ville:</label>
+                    <input type="text" id="register-city">
+                    <button type="submit" class="button button-secondary">S'inscrire</button>
+                    <div id="register-message"></div>
+                </form>
+            </div>
+        </section>
+
+        <div id="notifications-container"></div>
+
+    </main>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/referendums.js"></script>
+</body>
+</html>

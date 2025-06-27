@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Portefeuille Intelligent</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden; /* Empêche le défilement global */
+        }
+        nav {
+            background-color: #2c3e50;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #1abc9c; /* Une couleur d'accent pour l'hover */
+        }
+        .app-title {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .content-area {
+            flex-grow: 1; /* Permet à la zone de contenu de prendre l'espace disponible */
+            padding: 20px;
+            overflow-y: auto; /* Permet le défilement si le contenu dépasse */
+            background-color: #ffffff;
+            border-radius: 8px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .content-area h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <span class="app-title">Portefeuille Intelligent</span>
+        <ul>
+            <li><a href="#" data-route="home">Accueil</a></li>
+            <li><a href="#" data-route="cli-tools">Outils CLI</a></li>
+            <li><a href="#" data-route="ai-agents">Agents IA</a></li>
+            <li><a href="#" data-route="reports">Rapports IA</a></li>
+            <li><a href="#" data-route="3d-generation">Génération 3D</a></li>
+            <li><a href="#" data-route="music-generation">Génération Musique</a></li>
+            <li><a href="#" data-route="article-generation">Génération Article</a></li>
+            <li><a href="#" data-route="card-generation">Génération Carte</a></li>
+            <li><a href="#" data-route="image-analysis">Analyse d'Image</a></li>
+            </ul>
+    </nav>
+
+    <div class="content-area" id="app-content">
+        <h2>Bienvenue dans votre Portefeuille Intelligent !</h2>
+        <p>Utilisez la navigation ci-dessus pour explorer les différentes fonctionnalités.</p>
+        <p>Ce portefeuille intelligent est conçu pour vous aider à gérer divers aspects de vos informations avec l'aide de l'IA, de la gestion de commandes CLI à la génération de contenu créatif.</p>
+    </div>
+
+    <script>
+        // Ce script gérera le "routage" côté client
+        const contentArea = document.getElementById('app-content');
+        const API_SERVER_URL = 'http://localhost:5007'; // L'URL de ton serveur.js
+
+        // Fonction pour charger le contenu d'une "page" (ici, simuler la récupération de contenu)
+        // Dans une vraie application, tu chargerais peut-être des composants React/Vue,
+        // ou tu ferais un fetch à ton serveur pour récupérer le HTML si tu veux le laisser gérer le rendu.
+        async function loadContent(route) {
+            let htmlContent = '';
+            let pageTitle = '';
+
+            switch (route) {
+                case 'home':
+                    pageTitle = 'Accueil';
+                    htmlContent = `
+                        <h2>Bienvenue dans votre Portefeuille Intelligent !</h2>
+                        <p>Utilisez la navigation ci-dessus pour explorer les différentes fonctionnalités.</p>
+                        <p>Ce portefeuille intelligent est conçu pour vous aider à gérer divers aspects de vos informations avec l'aide de l'IA, de la gestion de commandes CLI à la génération de contenu créatif.</p>
+                    `;
+                    break;
+                case 'cli-tools':
+                    pageTitle = 'Outils CLI';
+                    // Ici, tu pourrais charger un formulaire pour les commandes CLI
+                    htmlContent = `
+                        <h2>Générateur de Commandes CLI</h2>
+                        <p>Entrez une description de la commande que vous souhaitez générer :</p>
+                        <input type="text" id="cliCommandInput" placeholder="Ex: Créer un dossier nommé 'documents'" style="width: 80%; padding: 8px; margin-bottom: 10px;">
+                        <button id="generateCliButton" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Générer Commande</button>
+                        <pre id="cliOutput" style="background-color: #eee; padding: 10px; border-radius: 5px; margin-top: 10px;"></pre>
+                    `;
+                    break;
+                case 'ai-agents':
+                    pageTitle = 'Agents IA';
+                    htmlContent = `
+                        <h2>Interagir avec les Agents IA</h2>
+                        <p>Choisissez un agent et posez votre question :</p>
+                        <select id="agentSelector" style="padding: 8px; margin-right: 10px;">
+                            <option value="general">Général</option>
+                            <option value="backend">Backend</option>
+                            <option value="frontend">Frontend</option>
+                            <option value="api_rest">API REST</option>
+                        </select>
+                        <input type="text" id="agentMessageInput" placeholder="Votre message..." style="width: 60%; padding: 8px; margin-bottom: 10px;">
+                        <button id="sendAgentMessageButton" style="padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Envoyer</button>
+                        <div id="agentResponse" style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-top: 10px;"></div>
+                    `;
+                    break;
+                case 'reports':
+                    pageTitle = 'Rapports IA';
+                    htmlContent = `
+                        <h2>Génération de Rapports et Articles</h2>
+                        <p>Entrez des thèmes pour un article ou des détails pour un business plan :</p>
+                        <input type="text" id="reportInput" placeholder="Thèmes séparés par des virgules (ex: IA, éducation, futur)" style="width: 80%; padding: 8px; margin-bottom: 10px;">
+                        <button id="generateArticleButton" style="padding: 10px 15px; background-color: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">Générer Article</button>
+                        <pre id="reportOutput" style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 10px;"></pre>
+                    `;
+                    break;
+                case '3d-generation':
+                    pageTitle = 'Génération 3D';
+                    htmlContent = `
+                        <h2>Génération d'Objets 3D</h2>
+                        <p>Décrivez l'objet 3D que vous souhaitez générer (ex: 'une sphère bleue', 'un cube vert qui tourne vite') :</p>
+                        <input type="text" id="3dPromptInput" placeholder="Votre description..." style="width: 80%; padding: 8px; margin-bottom: 10px;">
+                        <button id="generate3dButton" style="padding: 10px 15px; background-color: #ffc107; color: black; border: none; border-radius: 5px; cursor: pointer;">Générer 3D</button>
+                        <div id="3dOutput" style="margin-top: 20px;"></div>
+                        <p style="margin-top: 10px;">(Nécessite une librairie 3D comme Three.js pour le rendu, ce n'est qu'une description JSON.)</p>
+                    `;
+                    break;
+                case 'music-generation':
+                    pageTitle = 'Génération Musicale';
+                    htmlContent = `
+                        <h2>Génération de Séquences Musicales</h2>
+                        <p>Décrivez la musique que vous souhaitez générer (ex: 'un tempo rapide avec des notes de piano jazz') :</p>
+                        <input type="text" id="musicPromptInput" placeholder="Votre description..." style="width: 80%; padding: 8px; margin-bottom: 10px;">
+                        <button id="generateMusicButton" style="padding: 10px 15px; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">Générer Musique</button>
+                        <pre id="musicOutput" style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 10px;"></pre>
+                        <p style="margin-top: 10px;">(Nécessite une librairie audio comme Tone.js pour la lecture, ce n'est qu'une description JSON.)</p>
+                    `;
+                    break;
+                case 'article-generation':
+                    pageTitle = 'Génération d\'Articles';
+                    htmlContent = `
+                        <h2>Générateur d'Articles</h2>
+                        <p>Entrez les thèmes (séparés par des virgules) pour l'article :</p>
+                        <input type="text" id="articleThemesInput" placeholder="Ex: Intelligence Artificielle, Éthique, Futur" style="width: 80%; padding: 8px; margin-bottom: 10px;">
+                        <button id="generateArticleBtn" style="padding: 10px 15px; background-color: #17a2b8; color: white; border: none; border-radius: 5px; cursor: pointer;">Générer Article</button>
+                        <div id="articleOutput" style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 10px; white-space: pre-wrap;"></div>
+                    `;
+                    break;
+                case 'card-generation':
+                    pageTitle = 'Génération de Carte Dynamique';
+                    htmlContent = `
+                        <h2>Générateur de Cartes</h2>
+                        <p>Entrez un thème pour générer une carte intelligente (ex: 'technologie quantique', 'art numérique') :</p>
+                        <input type="text" id="cardThemeInput" placeholder="Thème de la carte..." style="width: 80%; padding: 8px; margin-bottom: 10px;">
+                        <button id="generateCardButton" style="padding: 10px 15px; background-color: #6610f2; color: white; border: none; border-radius: 5px; cursor: pointer;">Générer Carte</button>
+                        <div id="cardOutput" style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 20px;"></div>
+                        <style>
+                            .ai-card {
+                                border: 1px solid #ccc;
+                                border-radius: 8px;
+                                padding: 15px;
+                                width: 300px;
+                                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                                text-align: center;
+                                transition: transform 0.3s ease;
+                                cursor: pointer;
+                                position: relative;
+                                transform-style: preserve-3d;
+                                height: 250px;
+                            }
+                            .ai-card-inner {
+                                position: relative;
+                                width: 100%;
+                                height: 100%;
+                                text-align: center;
+                                transition: transform 0.6s;
+                                transform-style: preserve-3d;
+                            }
+                            .ai-card.flipped .ai-card-inner {
+                                transform: rotateY(180deg);
+                            }
+                            .card-face {
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                backface-visibility: hidden;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 8px;
+                            }
+                            .card-front {
+                                background-color: var(--front-bg-color, #f0f8ff);
+                                color: var(--front-text-color, #333333);
+                                border: 1px solid #ddd;
+                            }
+                            .card-back {
+                                background-color: var(--back-bg-color, #add8e6);
+                                color: var(--back-text-color, #FFFFFF);
+                                transform: rotateY(180deg);
+                                border: 1px solid #ddd;
+                            }
+                            .card-qr-code {
+                                margin-top: 10px;
+                            }
+                            .card-scene {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                z-index: 0; /* Place behind text */
+                                opacity: 0.2; /* Make it subtle */
+                            }
+                        </style>
+                    `;
+                    break;
+                case 'image-analysis':
+                    pageTitle = 'Analyse d\'Image';
+                    htmlContent = `
+                        <h2>Analyser une Image</h2>
+                        <p>Téléchargez une image pour que l'IA la décrive :</p>
+                        <input type="file" id="imageUploadInput" accept="image/*" style="margin-bottom: 10px;">
+                        <button id="analyzeImageButton" style="padding: 10px 15px; background-color: #fd7e14; color: white; border: none; border-radius: 5px; cursor: pointer;">Analyser Image</button>
+                        <div id="imageAnalysisOutput" style="background-color: #fff3cd; padding: 10px; border-radius: 5px; margin-top: 10px;"></div>
+                    `;
+                    break;
+                default:
+                    pageTitle = 'Page Introuvable';
+                    htmlContent = `
+                        <h2>Page non trouvée</h2>
+                        <p>Désolé, cette section n'existe pas ou n'est pas encore implémentée.</p>
+                    `;
+            }
+
+            contentArea.innerHTML = htmlContent;
+            document.title = `Mon Portefeuille Intelligent - ${pageTitle}`; // Met à jour le titre de la fenêtre
+
+            // Initialiser les écouteurs d'événements pour les éléments chargés dynamiquement
+            attachEventListeners(route);
+        }
+
+        function attachEventListeners(route) {
+            if (route === 'cli-tools') {
+                const generateCliButton = document.getElementById('generateCliButton');
+                if (generateCliButton) {
+                    generateCliButton.addEventListener('click', async () => {
+                        const commandInput = document.getElementById('cliCommandInput').value;
+                        const cliOutput = document.getElementById('cliOutput');
+                        cliOutput.textContent = 'Génération en cours...';
+                        try {
+                            const response = await fetch(`${API_SERVER_URL}/cli-command`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ command: commandInput })
+                            });
+                            const data = await response.json();
+                            if (response.ok) {
+                                cliOutput.textContent = data.response;
+                            } else {
+                                cliOutput.textContent = `Erreur: ${data.error}`;
+                            }
+                        } catch (error) {
+                            console.error('Erreur lors de l\'appel CLI:', error);
+                            cliOutput.textContent = `Erreur de connexion au serveur: ${error.message}`;
+                        }
+                    });
+                }
+            } else if (route === 'ai-agents') {
+                const sendAgentMessageButton = document.getElementById('sendAgentMessageButton');
+                if (sendAgentMessageButton) {
+                    sendAgentMessageButton.addEventListener('click', async () => {
+                        const agentSelector = document.getElementById('agentSelector').value;
+                        const agentMessageInput = document.getElementById('agentMessageInput').value;
+                        const agentResponseDiv = document.getElementById('agentResponse');
+                        agentResponseDiv.innerHTML = 'Demande à l\'agent en cours...';
+
+                        try {
+                            const response = await fetch(`${API_SERVER_URL}/chat/${agentSelector}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ message: agentMessageInput })
+                            });
+                            const data = await response.json();
+                            if (response.ok) {
+                                agentResponseDiv.innerHTML = data.response; // Supposons que la réponse est déjà HTML
+                            } else {
+                                agentResponseDiv.innerHTML = `Erreur: ${data.error}`;
+                            }
+                        } catch (error) {
+                            console.error('Erreur lors de l\'appel à l\'agent IA:', error);
+                            agentResponseDiv.innerHTML = `Erreur de connexion au serveur: ${error.message}`;
+                        }
+                    });
+                }
+            } else if (route === 'reports') {
+                const generateArticleButton = document.getElementById('generateArticleButton');
+                if (generateArticleButton) {
+                    generateArticleButton.addEventListener('click', async () => {
+                        const reportInput = document.getElementById('reportInput').value;
+                        const reportOutput = document.getElementById('reportOutput');
+                        reportOutput.textContent = 'Génération de l\'article en cours...';
+                        const themes = reportInput.split(',').map(t => t.trim()).filter(t => t.length > 0);
+                        if (themes.length === 0) {
+                            reportOutput.textContent = "Veuillez entrer au moins un thème.";
+                            return;
+                        }
+
+                        try {
+                            const response = await fetch(`${API_SERVER_URL}/generate-article`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ themes: themes })
+                            });
+                            const data = await response.json();
+                            if (response.ok) {
+                                reportOutput.textContent = data.article;
+                            } else {
+                                reportOutput.textContent = `Erreur: ${data.error}`;
+                            }
+                        } catch (error) {
+                            console.error('Erreur lors de la génération de l\'article:', error);
+                            reportOutput.textContent = `Erreur de connexion au serveur: ${error.message}`;
+                        }
+                    });
+                }
+            } else if (route === '3d-generation') {
+                const generate3dButton = document.getElementById('generate3dButton');
+                if (generate3dButton) {
+                    generate3dButton.addEventListener('click', async () => {
+                        const promptInput = document.getElementById('3dPromptInput').value;
+                        const outputDiv = document.getElementById('3dOutput');
+                        outputDiv.textContent = 'Génération de la description 3D en cours...';
+                        try {
+                            const response = await fetch(`${API_SERVER_URL}/generate-3d`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ prompt: promptInput })
+                            });
+                            const data = await response.json();
+                            if (response.ok) {
+                                outputDiv.textContent = JSON.stringify(data, null, 2);
+                                // Ici, tu intégrerais un moteur 3D (ex: Three.js) pour visualiser 'data'
+                            } else {
+                                outputDiv.textContent = `Erreur: ${data.error}`;
+                            }
+                        } catch (error) {
+                            console.error('Erreur lors de la génération 3D:', error);
+                            outputDiv.textContent = `Erreur de connexion au serveur: ${error.message}`;
+                        }
+                    });
+                }
+            } else if (route === 'music-generation') {
+                const generateMusicButton = document.getElementById('generateMusicButton');
+                if (generateMusicButton) {
+                    generateMusicButton.addEventListener('click', async () => {
+                        const promptInput = document.getElementById('musicPromptInput').value;
+                        const outputDiv = document.getElementById('musicOutput');
+                        outputDiv.textContent = 'Génération de la description musicale en cours...';
+                        try {
+                            const response = await fetch(`${API_SERVER_URL}/generate-music`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ prompt: promptInput })
+                            });
+                            const data = await response.json();
+                            if (response.ok) {
+                                outputDiv.textContent = JSON.stringify(data, null, 2);
+                                // Ici, tu intégrerais un moteur audio (ex: Tone.js) pour jouer 'data'
+                            } else {
+                                outputDiv.textContent = `Erreur: ${data.error}`;
+                            }
+                        } catch (error) {
+                            console.error('Erreur lors de la génération musicale:', error);
+                            outputDiv.textContent = `Erreur de connexion au serveur: ${error.message}`;
+                        }
+                    });
+                }
+            } else if (route === 'article-generation') {
+                const generateArticleBtn = document.getElementById('generateArticleBtn');
+                if (generateArticleBtn) {
+                    generateArticleBtn.addEventListener('click', async () => {
+                        const themesInput = document.getElementById('articleThemesInput').value;
+                        const articleOutputDiv = document.getElementById('articleOutput');
+                        articleOutputDiv.textContent = 'Génération de l\'article en cours...';
+                        const themes = themesInput.split(',').map(t => t.trim()).filter(t => t.length > 0);
+                        if (themes.length === 0) {
+                            articleOutputDiv.textContent = "Veuillez entrer au moins un thème.";
+                            return;
+                        }
+
+                        try {
+                            const response = await fetch(`${API_SERVER_URL}/generate-article`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ themes: themes })
+                            });
+                            const data = await response.json();
+                            if (response.ok) {
+                                articleOutputDiv.textContent = data.article;
+                            } else {
+                                articleOutputDiv.textContent = `Erreur: ${data.error}`;
+                            }
+                        } catch (error) {
+                            console.error('Erreur lors de la génération de l\'article:', error);
+                            articleOutputDiv.textContent = `Erreur de connexion au serveur: ${error.message}`;
+                        }
+                    });
+                }
+            } else if (route === 'card-generation') {
+                const generateCardButton = document.getElementById('generateCardButton');
+                if (generateCardButton) {
+                    generateCardButton.addEventListener('click', async () => {
+                        const themeInput = document.getElementById('cardThemeInput').value;
+                        const cardOutputDiv = document.getElementById('cardOutput');
+                        cardOutputDiv.innerHTML = 'Génération de la carte en cours...';
+
+                        try {
+                            const response = await fetch(`${API_SERVER_URL}/generate-card`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ theme: themeInput })
+                            });
+                            const cardData = await response.json();
+
+                            if (response.ok) {
+                                const cardDiv = document.createElement('div');
+                                cardDiv.className = 'ai-card';
+                                cardDiv.style.setProperty('--front-bg-color', cardData.frontBackgroundColor);
+                                cardDiv.style.setProperty('--front-text-color', cardData.frontTextColor);
+                                cardDiv.style.setProperty('--back-bg-color', cardData.backBackgroundColor);
+                                cardDiv.style.setProperty('--back-text-color', cardData.backTextColor);
+
+                                cardDiv.innerHTML = `
+                                    <div class="ai-card-inner">
+                                        <div class="card-face card-front">
+                                            ${cardData.frontSvgCode || ''}
+                                            <h3>${cardData.frontTitle}</h3>
+                                            <p>${cardData.frontDescription}</p>
+                                        </div>
+                                        <div class="card-face card-back">
+                                            <h3>${cardData.backTitle}</h3>
+                                            <p>${cardData.backPromotion}</p>
+                                            <p>${cardData.backContribution}</p>
+                                            <p><strong>${cardData.backPricing}</strong></p>
+                                            <button style="padding: 8px 12px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="window.open('${cardData.backCallToActionLink}', '_blank')">${cardData.backCallToAction}</button>
+                                            <img class="card-qr-code" id="qrCode-${Date.now()}" src="" alt="QR Code" style="width: 80px; height: 80px;">
+                                        </div>
+                                    </div>
+                                `;
+                                cardDiv.addEventListener('click', () => {
+                                    cardDiv.classList.toggle('flipped');
+                                });
+                                cardOutputDiv.innerHTML = ''; // Clear "Génération en cours..."
+                                cardOutputDiv.appendChild(cardDiv);
+
+                                // Generate QR Code after card is in DOM
+                                try {
+                                    const qrResponse = await fetch(`${API_SERVER_URL}/generate-qrcode?data=${encodeURIComponent(cardData.qrCodeData)}`);
+                                    const qrData = await qrResponse.json();
+                                    if (qrResponse.ok && qrData.qrCodeDataUrl) {
+                                        document.getElementById(`qrCode-${Date.now() - 1}`).src = qrData.qrCodeDataUrl; // Adjust ID based on actual generation time
+                                    } else {
+                                        console.error('Erreur lors de la génération du QR code:', qrData.error || 'Unknown error');
+                                    }
+                                } catch (qrError) {
+                                    console.error('Erreur de connexion pour le QR code:', qrError);
+                                }
+
+
+                            } else {
+                                cardOutputDiv.innerHTML = `Erreur: ${cardData.error}`;
+                            }
+                        } catch (error) {
+                            console.error('Erreur lors de la génération de la carte:', error);
+                            cardOutputDiv.innerHTML = `Erreur de connexion au serveur: ${error.message}`;
+                        }
+                    });
+                }
+            } else if (route === 'image-analysis') {
+                const analyzeImageButton = document.getElementById('analyzeImageButton');
+                if (analyzeImageButton) {
+                    analyzeImageButton.addEventListener('click', async () => {
+                        const imageUploadInput = document.getElementById('imageUploadInput');
+                        const imageAnalysisOutput = document.getElementById('imageAnalysisOutput');
+                        if (!imageUploadInput.files || imageUploadInput.files.length === 0) {
+                            imageAnalysisOutput.textContent = 'Veuillez sélectionner une image.';
+                            return;
+                        }
+
+                        const file = imageUploadInput.files[0];
+                        const formData = new FormData();
+                        formData.append('image', file);
+
+                        imageAnalysisOutput.textContent = 'Analyse de l\'image en cours...';
+
+                        try {
+                            const response = await fetch(`${API_SERVER_URL}/analyze-image`, {
+                                method: 'POST',
+                                body: formData // Pas besoin de 'Content-Type' avec FormData, le navigateur le gère
+                            });
+                            const data = await response.json();
+                            if (response.ok) {
+                                imageAnalysisOutput.textContent = `Analyse : ${data.analysis}`;
+                            } else {
+                                imageAnalysisOutput.textContent = `Erreur: ${data.error}`;
+                            }
+                        } catch (error) {
+                            console.error('Erreur lors de l\'analyse d\'image:', error);
+                            imageAnalysisOutput.textContent = `Erreur de connexion au serveur: ${error.message}`;
+                        }
+                    });
+                }
+            }
+        }
+
+
+        // Gérer les clics sur les liens de navigation
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault(); // Empêche le comportement par défaut du lien (rechargement)
+                const route = event.target.dataset.route;
+                loadContent(route);
+            });
+        });
+
+        // Charger la page d'accueil par défaut au démarrage
+        document.addEventListener('DOMContentLoaded', () => {
+            loadContent('home');
+        });
+    </script>
+</body>
+</html>
